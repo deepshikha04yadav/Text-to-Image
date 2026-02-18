@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 import sys
 sys.path.append('..')
-from attention_gan import AttentionTextToImageGAN, weights_init
+from models.attention_gan import AttentionTextToImageGAN, weights_init
 sys.path.append('../utils')
 
 
