@@ -9,7 +9,7 @@ import torch.nn.functional as F
 from typing import Tuple, Optional
 import sys
 sys.path.append('.')
-from attention_modules import (
+from models.attention_modules import (
     SelfAttention,
     AttentionBlock,
     SpatialCrossAttention,
