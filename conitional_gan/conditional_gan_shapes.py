@@ -187,7 +187,7 @@ class ShapeDataset(Dataset):
         self.shapes = ShapeGenerator.SHAPES
         self.shape_to_idx = {shape: i for i, shape in enumerate(self.shapes)}
         
-        print(f"📊 ShapeDataset initialized:")
+        print(f" ShapeDataset initialized:")
         print(f"   Samples: {num_samples}")
         print(f"   Image size: {size}x{size}")
         print(f"   Shapes ({len(self.shapes)}): {', '.join(self.shapes)}")
@@ -537,7 +537,7 @@ class CGANTrainer:
             if (epoch + 1) % 10 == 0:
                 self.save_checkpoint(epoch + 1, save_dir)
         
-        print(f"\n✅ Training complete!")
+        print(f"\n Training complete!")
     
     def save_samples(self, epoch, save_dir):
         """Save generated samples for all shapes"""
@@ -574,7 +574,7 @@ class CGANTrainer:
         plt.savefig(f'{save_dir}/samples/epoch_{epoch}.png', dpi=150, bbox_inches='tight')
         plt.close()
         
-        print(f"   💾 Saved samples: epoch_{epoch}.png")
+        print(f"    Saved samples: epoch_{epoch}.png")
         
         self.generator.train()
     
@@ -590,7 +590,7 @@ class CGANTrainer:
         
         path = f'{save_dir}/checkpoints/cgan_epoch_{epoch}.pt'
         torch.save(checkpoint, path)
-        print(f"   💾 Saved checkpoint: cgan_epoch_{epoch}.pt")
+        print(f"    Saved checkpoint: cgan_epoch_{epoch}.pt")
 
 
 # ============================================================================
@@ -626,7 +626,7 @@ class ShapeGeneratorInterface:
         self.shapes = ShapeGenerator.SHAPES
         self.shape_to_idx = {shape: i for i, shape in enumerate(self.shapes)}
         
-        print(f"✅ ShapeGenerator loaded from {checkpoint_path}")
+        print(f" ShapeGenerator loaded from {checkpoint_path}")
         print(f"   Available shapes: {', '.join(self.shapes)}")
     
     def generate(self, shape_name, num_samples=1, seed=None):
@@ -704,7 +704,7 @@ if __name__ == '__main__':
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
-    print(f"\n⚙️  Configuration:")
+    print(f"\n  Configuration:")
     print(f"   Device: {device}")
     print(f"   Batch size: {BATCH_SIZE}")
     print(f"   Epochs: {NUM_EPOCHS}")
@@ -712,12 +712,12 @@ if __name__ == '__main__':
     print(f"   Number of shapes: {NUM_CLASSES}")
     
     # Create dataset
-    print(f"\n📊 Creating dataset...")
+    print(f"\n Creating dataset...")
     dataset = ShapeDataset(num_samples=10000, size=IMAGE_SIZE)
     dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
     
     # Create models
-    print(f"\n🏗️  Creating models...")
+    print(f"\n  Creating models...")
     generator = ConditionalGenerator(
         latent_dim=LATENT_DIM,
         num_classes=NUM_CLASSES,
@@ -733,13 +733,13 @@ if __name__ == '__main__':
     print(f"   Discriminator parameters: {sum(p.numel() for p in discriminator.parameters()):,}")
     
     # Create trainer
-    print(f"\n🎓 Creating trainer...")
+    print(f"\n Creating trainer...")
     trainer = CGANTrainer(generator, discriminator, device=device)
     
     # Train
-    print(f"\n🚀 Starting training...")
+    print(f"\n Starting training...")
     trainer.train(dataloader, num_epochs=NUM_EPOCHS)
     
-    print(f"\n✅ Complete!")
+    print(f"\n Complete!")
     print(f"   Checkpoints: ./outputs/cgan/checkpoints/")
     print(f"   Samples: ./outputs/cgan/samples/")
