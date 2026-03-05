@@ -28,7 +28,7 @@ class ArtGenerator:
             checkpoint_path: Path to your trained model checkpoint
             device: 'cuda', 'cpu', or 'auto' (auto-detect)
         """
-        print("🎨 Initializing Art Generator...")
+        print(" Initializing Art Generator...")
         
         # Setup device
         if device == 'auto':
@@ -55,7 +55,7 @@ class ArtGenerator:
         # Load embedder
         self.embedder = self._load_embedder()
         
-        print("✅ Generator ready!\n")
+        print(" Generator ready!\n")
     
     def _load_model(self, checkpoint_path):
         """Load the GAN model"""
@@ -189,7 +189,7 @@ class ArtGenerator:
             
             img.save(filepath)
             saved_paths.append(filepath)
-            print(f"💾 Saved: {filepath}")
+            print(f" Saved: {filepath}")
         
         return saved_paths
 
@@ -220,7 +220,7 @@ def interactive_mode():
     try:
         generator = ArtGenerator(checkpoint_path=default_checkpoint)
     except FileNotFoundError:
-        print("\n❌ No trained model found!")
+        print("\n No trained model found!")
         print("Please train a model first using TRAIN_FIXED_DIMENSIONS.py")
         return
     
@@ -244,7 +244,7 @@ def interactive_mode():
         prompt = input("\nPrompt: ").strip()
         
         if prompt.lower() in ['quit', 'exit', 'q']:
-            print("👋 Goodbye!")
+            print(" Goodbye!")
             break
         
         if prompt.lower() == 'save' and last_images:
@@ -252,7 +252,7 @@ def interactive_mode():
             if not output:
                 output = 'art.png'
             last_images[0].save(output)
-            print(f"✅ Saved to {output}")
+            print(f" Saved to {output}")
             continue
         
         if not prompt:
@@ -266,14 +266,14 @@ def interactive_mode():
         except:
             num_samples = 1
         
-        print(f"\n🎨 Generating {num_samples} image(s)...")
+        print(f"\n Generating {num_samples} image(s)...")
         
         try:
             images = generator.generate(prompt, num_samples=num_samples)
             last_images = images
             
             # Display info
-            print(f"✅ Generated {len(images)} image(s)!")
+            print(f" Generated {len(images)} image(s)!")
             print(f"   Prompt: '{prompt}'")
             print(f"   Size: {images[0].size}")
             
@@ -281,7 +281,7 @@ def interactive_mode():
             save = input("\nSave images? (y/n): ").strip().lower()
             if save == 'y':
                 saved = generator.save_images(images, prefix=prompt[:30].replace(' ', '_'))
-                print(f"✅ Saved {len(saved)} images")
+                print(f" Saved {len(saved)} images")
             
             # Display (if in notebook)
             try:
@@ -292,7 +292,7 @@ def interactive_mode():
                 print("   (Images saved but cannot display - not in notebook)")
         
         except Exception as e:
-            print(f"❌ Error: {e}")
+            print(f" Error: {e}")
 
 
 # ============================================================================
@@ -324,13 +324,13 @@ if __name__ == '__main__':
         # Single generation
         generator = ArtGenerator(checkpoint_path=args.checkpoint)
         
-        print(f"\n🎨 Generating: '{args.prompt}'")
+        print(f"\n Generating: '{args.prompt}'")
         images = generator.generate(args.prompt, 
                                     num_samples=args.num_samples,
                                     seed=args.seed)
         
         saved = generator.save_images(images, output_dir=args.output)
         
-        print(f"\n✅ Generated and saved {len(saved)} images!")
+        print(f"\n Generated and saved {len(saved)} images!")
         for path in saved:
             print(f"   {path}")
