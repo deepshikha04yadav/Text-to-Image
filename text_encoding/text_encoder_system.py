@@ -53,7 +53,7 @@ class AdvancedTextPreprocessor:
         self.remove_numbers = remove_numbers
         self.max_length = max_length
         
-        print("🔧 Text Preprocessor initialized")
+        print(" Text Preprocessor initialized")
     
     def clean_text(self, text: str) -> str:
         """
@@ -197,7 +197,7 @@ class UniversalTextEncoder:
         else:
             self.device = torch.device(device)
         
-        print(f"\n🚀 Initializing {model_name.upper()} Text Encoder")
+        print(f"\n Initializing {model_name.upper()} Text Encoder")
         print(f"   Model: {model_variant}")
         print(f"   Device: {self.device}")
         print(f"   Max length: {max_length}")
@@ -208,7 +208,7 @@ class UniversalTextEncoder:
         # Cache for embeddings
         self.embedding_cache = {}
         
-        print(f"✅ Encoder ready!")
+        print(f" Encoder ready!")
         print(f"   Embedding dimension: {self.embedding_dim}")
     
     def _load_model(self):
@@ -436,7 +436,7 @@ class UniversalTextEncoder:
                 text: torch.tensor(emb)
                 for text, emb in cache_data.items()
             }
-            print(f"📂 Loaded {len(cache_data)} cached embeddings from {filepath}")
+            print(f" Loaded {len(cache_data)} cached embeddings from {filepath}")
 
 
 class TextEncoderPipeline:
@@ -480,7 +480,7 @@ class TextEncoderPipeline:
             device=device
         )
         
-        print("\n✅ Pipeline ready!")
+        print("\n Pipeline ready!")
     
     def process_and_encode(self,
                           texts: Union[str, List[str]],
@@ -624,7 +624,7 @@ def analyze_dataset_captions(captions: List[str], sample_size: int = 1000):
     word_counts = [s['word_count'] for s in stats]
     avg_word_lengths = [s['avg_word_length'] for s in stats]
     
-    print(f"\n📊 STATISTICS:")
+    print(f"\n STATISTICS:")
     print(f"   Character Length:")
     print(f"      Min: {min(lengths)}")
     print(f"      Max: {max(lengths)}")
@@ -712,5 +712,5 @@ if __name__ == '__main__':
     print(f"Output shape: {batch_embeddings.shape}")
     
     print("\n" + "="*80)
-    print("✅ ALL EXAMPLES COMPLETE!")
+    print(" ALL EXAMPLES COMPLETE!")
     print("="*80)
